@@ -1,4 +1,5 @@
 
 pushd Build
-cl ../src/main.cpp /Zi /link /DEBUG
+@REM cl ../src/main.cpp /Zi /link /DEBUG
+cl ../src/main.cpp
 popd

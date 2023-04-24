@@ -55,10 +55,8 @@ int OpenReadBin(const char *path, void **data, long *size)
         return -1;
     }
 
-    uint16 w;
-
-    (*data)          = (void *)malloc(sizeof(char) * (*size));
-    size_t readBytes = fread(*(void **)data, sizeof(char), *size, file);
+    *data            = (void *)malloc(sizeof(char) * (*size));
+    size_t readBytes = fread(*data, sizeof(char), *size, file);
 
     if (readBytes <= 0) {
         free(data);
@@ -94,7 +92,8 @@ void Decode(uint16 inst)
             printf("NOT IMPLEMENTED: Memory mode, 16-bit displacement follows\n");
             break;
         case 0x03:
-            {
+            { // Register mode
+
                 // check D field:
                 //      D = 0: REG = src, RM = dst
                 //      D = 1: REG = dst, RM = src
@@ -106,9 +105,9 @@ void Decode(uint16 inst)
                 const char *rm  = (WField ? wordReg[RM(inst)] : byteReg[RM(inst)]);
 
                 if (DField == 0x0)
-                    printf("mov %s, %s\n", rm, reg);
+                    printf("mov %s, %s\n\0", rm, reg);
                 if (DField == 0x1)
-                    printf("mov %s, %s\n", reg, rm);
+                    printf("mov %s, %s\n\0", reg, rm);
             }
             break;
 
@@ -132,7 +131,7 @@ int main(int argc, char const *argv[])
     }
 
 
-    printf("bits 16\n\n");
+    printf("bits 16\n\n\0");
 
     // Since we are only dealing with 2-bytes instruction
     // for now uint16 is fine
