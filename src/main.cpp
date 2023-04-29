@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
 
     // Since we are only dealing with 2-bytes instruction
     // for now uint16 is fine
-    // AND assuming there are 'mov' instructions for now
+    // AND assuming there are only register to register 'mov' instructions for now
     size_t instruction_count = size / 2;
 
     for (size_t i = 0; i < instruction_count; i++) {

@@ -6,3 +6,6 @@ Build
 *.pdb
 *.obj
 *.exe
+
+./asm/test
+./asm/test.asm
